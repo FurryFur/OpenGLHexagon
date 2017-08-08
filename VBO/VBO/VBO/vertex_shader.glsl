@@ -7,19 +7,20 @@ in vec3 position;
 // in vec3 color;
 uniform float currentTime;
 
-out vec3 outColor;
+//out vec3 outColor;
+out vec2 fragCoord;
 
 const float PI = 3.14;
 const float speed = 5.0;
 const float offset = 2.0 * PI / 3.0;
 
 void main() {
-    float theta = atan(position.y, position.x);
+    //float theta = atan(position.y, position.x);
 
-    theta += speed * currentTime;
-    outColor.r = (cos(theta) + 1.0) / 2.0;
-    outColor.b = (cos(theta + offset) + 1.0) / 2.0;
-    outColor.g = (cos(theta + 2.0 * offset) + 1.0) / 2.0;
+    //theta += speed * currentTime;
+    //outColor.r = (cos(theta) + 1.0) / 2.0;
+    //outColor.b = (cos(theta + offset) + 1.0) / 2.0;
+    //outColor.g = (cos(theta + 2.0 * offset) + 1.0) / 2.0;
 
     mat4 R = mat4(
         cos(currentTime), sin(currentTime), 0.0, 0.0,
@@ -29,4 +30,6 @@ void main() {
     );
 
     gl_Position = R * vec4(position, 1.0);
+
+    fragCoord = position.xy;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "ShaderHelper.h"
 
 ShaderHelper::ShaderHelper() {
@@ -49,7 +50,7 @@ GLuint ShaderHelper::compileShader(GLenum ShaderType, const char* shaderCode) {
 	if (!compileStatus) {
 		GLchar InfoLog[1024];
 		glGetShaderInfoLog(shaderObjectId, 1024, NULL, InfoLog);
-		std::cout << "Error compiling shader type" << ShaderType << std::endl << InfoLog << std::endl;
+		std::cout << "Error compiling shader type" << ShaderType << std::endl << std::string(InfoLog) << std::endl;
 		exit(1);
 	}
 
@@ -73,7 +74,7 @@ GLuint ShaderHelper::linkProgram(GLuint vertexShaderId, GLuint fragmentShaderId)
 	glGetProgramiv(programObjectId, GL_LINK_STATUS, &linkStatus);
 	if (linkStatus == 0) {
 		glGetProgramInfoLog(programObjectId, sizeof(ErrorLog), NULL, ErrorLog);
-		std::cout << "Error linking shader program: " << std::endl << ErrorLog << std::endl;
+		std::cout << "Error linking shader program: " << std::endl << std::string(ErrorLog) << std::endl;
 		exit(1);
 	}
 	return programObjectId;
@@ -86,7 +87,7 @@ GLint ShaderHelper::validateProgram(GLuint programObjectId) {
 	glGetProgramiv(programObjectId, GL_VALIDATE_STATUS, &Success);
 	if (!Success) {
 		glGetProgramInfoLog(programObjectId, sizeof(ErrorLog), NULL, ErrorLog);
-		std::cout << "Invalid shader program: " << std::endl << ErrorLog;
+		std::cout << "Invalid shader program: " << std::endl << std::string(ErrorLog);
 		exit(1);
 	}
 	return Success;
