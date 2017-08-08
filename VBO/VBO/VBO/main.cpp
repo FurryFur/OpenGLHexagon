@@ -22,8 +22,8 @@ static std::array<GLfloat, vertArraySize> createVertices()
 
 	for (int i = 0; i < numVerts * numComponents; i += numComponents)
 	{
-		vertices[i]     = std::cos(2 * M_PI * i / vertArraySize);
-		vertices[i + 1] = std::sin(2 * M_PI * i / vertArraySize);
+		vertices[i]     = static_cast<GLfloat>(std::cos(2 * M_PI * i / vertArraySize));
+		vertices[i + 1] = static_cast<GLfloat>(std::sin(2 * M_PI * i / vertArraySize));
 		vertices[i + 2] = 0.0f;
 	}
 
@@ -39,7 +39,7 @@ static void getUniformLocation() {
 // Main render function
 static void RenderSceneCB()
 {
-	GLfloat currentTime = glutGet(GLUT_ELAPSED_TIME);
+	GLfloat currentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 	currentTime = currentTime / 1000.0f;
 	glUniform1f(currentTimeLocation, currentTime);
 
